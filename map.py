@@ -116,11 +116,15 @@ USA = Map(
     'Wyoming' : ['Colorado' , 'Idaho' , 'Montana' , 'Nebraska' , 'South Dakota' , 'Utah' ]
 })
 
+def showTime():
+    endTime = datetime.now()
+    elapsedTime = (endTime - startTime).microseconds / 1000
+    print("Elapsed Time: %sms" % (str(elapsedTime)))
 
 country_choice =int(input("Enter '1' to use AUSTRALIA data , '2' to use USA data: "))
 heuristic_choice = int(input("Enter '1' to use no heuristic , '2' to use a heuristic: "))
 algorithm_choice = int(input("Enter '1' for Depth first search only, '2' for Depth first search + forward checking, '3' for Depth first search + forward checking + propagation through singleton domains: "))
-
+startTime = datetime.now()
 if(country_choice == 1):
     states = Australia.country_states
     neighbors = Australia.country_neighbors
@@ -135,11 +139,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
@@ -149,13 +153,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
         elif(algorithm_choice == 3):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
@@ -164,12 +166,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)    
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
     else:
         if(algorithm_choice == 1):
             numberOfBacktracks = 0
@@ -179,13 +180,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
@@ -194,12 +193,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
         else:
             numberOfBacktracks = 0
@@ -209,12 +207,11 @@ if(country_choice == 1):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
 elif(country_choice == 2):
     states = USA.country_states
@@ -230,11 +227,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
                 
         elif(algorithm_choice == 2):
@@ -245,13 +242,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
         else:
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
@@ -260,12 +255,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
     else:
         if(algorithm_choice == 1):
@@ -276,12 +270,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
@@ -291,12 +284,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
         else:
             numberOfBacktracks = 0
@@ -306,12 +298,11 @@ elif(country_choice == 2):
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
-                
             else:
                 print("Failure")
-                print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+
+            print("No. of Backtracks: ", numberOfBacktracks)
+            showTime()
                 
 else:
     print("Invalid choice.")
