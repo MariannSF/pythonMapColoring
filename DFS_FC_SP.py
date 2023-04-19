@@ -29,16 +29,16 @@ def ForwardcheckSP(location, colors, color_options, heuristic=False):
     currentNeighbors = neighbor[currentState]
     usedColors = [colors[neighbor] for neighbor in currentNeighbors if colors[neighbor] is not None]
 
-    for color in new_color_options:
+    for color in new_color_options: #checking color option
         if color not in usedColors:
             colors[currentState] = color
             states.remove(currentState)
 
-            if not cfs.check(color, currentNeighbors, colors, color_options):
+            if not cfs.check(color, currentNeighbors, colors, color_options):   #check consistency
                 previousColors = copy.deepcopy(color_options)
                 color_options = cfs.reduce_color_options(color, currentNeighbors, colors, color_options)
 
-                if cfs.singleton_check(currentNeighbors, neighbor, colors, color_options):
+                if cfs.singleton_check(currentNeighbors, neighbor, colors, color_options):  #sending state and neighbors to singleton check
                     if ForwardcheckSP((states, neighbor), colors, color_options)[0] != "Failure":
                         return ("Success", numberOfBacktracks)
 

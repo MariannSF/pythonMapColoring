@@ -15,12 +15,12 @@ def DFS_Only(location, colors, color_options, heuristic=False):
     neighbor = location[1]
     global numberOfBacktracks
     all_none = True
-    for value in colors.values():
+    for value in colors.values():   #check if state is colored
         if(value is None):
             all_none = False
             break
     if all_none: return ("Success", numberOfBacktracks)
-    if heuristic:
+    if heuristic:   #apply heuristic
         currentState = cfs.minRemainingValueHeuristic(states, color_options, neighbor)
         new_color_options = cfs.leastConstrainingValueHeuristic(currentState, color_options, neighbor)
     else:
@@ -28,15 +28,15 @@ def DFS_Only(location, colors, color_options, heuristic=False):
         new_color_options = color_options[currentState]
     currentNeighbors = neighbor[currentState]
     usedColors = list(map(colors.get, currentNeighbors))
-    for color in new_color_options:
+    for color in new_color_options: #check color for state
         if color not in usedColors:
             colors[currentState] = color
             states.remove(currentState)
-            if dfs.DFS_Only((states,neighbor), colors, color_options, heuristic)[0] != "Failure":
+            if dfs.DFS_Only((states,neighbor), colors, color_options, heuristic)[0] != "Failure":   #recursion
                 return ("Success", numberOfBacktracks)
             colors[currentState] = None
             states.append(currentState)
-    if colors[currentState] == None:
+    if colors[currentState] == None:#backtrack and set state to none
         numberOfBacktracks += 1
         return ("Failure", numberOfBacktracks)
 

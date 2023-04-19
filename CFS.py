@@ -7,12 +7,14 @@ import DFS_FC_SP as sp
 
 color_options ={}
 
+#cycles through all sates to set placeholders
 def color_dict(states):
     assignedColor = {}
     for state in states:
         assignedColor[state] = None
     return assignedColor
 
+#returnig colors based on how many needed
 def create_color_options(states, numberOfColors):
     color_options = {}
     color_choices = ['Red', 'Blue', 'Green', 'Yellow', 'Pink', 'Orange', 'Black', 'Grey', 'Purple', 'White']
@@ -23,19 +25,20 @@ def create_color_options(states, numberOfColors):
         color_options[state] = copy.deepcopy(color)
     return color_options
 
+#based on neighbors eliminate the colors that are inuse
 def reduce_color_options(color, currentNeighbors, colors, color_options):
     for neighbor in currentNeighbors:
         if colors[neighbor] == None and color in color_options[neighbor]:
             color_options[neighbor].remove(color)
     return color_options
-            
+#checking if neighbor and state has same color, check if only one color left
 def check(color, currentNeighbors, colors, color_options):
     for neighbor in currentNeighbors:
         if colors[neighbor] == None and color in color_options[neighbor]:
             if len(color_options[neighbor]) == 1:
                 return True
     return False
-
+#check if map can be colored with one(single) color
 def singleton_check(currentNeighbors, neighbors, colors, color_options):
     reduceStates = [neighbor for neighbor in currentNeighbors if len(color_options[neighbor]) == 1 and colors[neighbor] is None]
     
@@ -43,20 +46,20 @@ def singleton_check(currentNeighbors, neighbors, colors, color_options):
         state = reduceStates.pop(0)
         for neighbor in neighbors[state]:
             if colors[neighbor] is None and color_options[state][0] in color_options[neighbor]:
-                color_options[neighbor].remove(color_options[state][0])
+                color_options[neighbor].remove(color_options[state][0]) #eliminate color from neighbors domain
                 if not color_options[neighbor]:
                     return False
                 if len(color_options[neighbor]) == 1:
                     reduceStates.append(neighbor)
     return True
 
-
+#calculatin MRV
 def minRemainingValueHeuristic(states, color_options, neighbors):    
     states.sort(key=lambda x: (len(color_options[x]),-len(neighbors[x])))
     currentSelection = states[0]
     return currentSelection
 
-""" """
+#calculatin LCV
 def leastConstrainingValueHeuristic(currentState, color_options, neighbors):
     current_color_options = color_options[currentState]
     ordered_color_options = {}
@@ -65,7 +68,7 @@ def leastConstrainingValueHeuristic(currentState, color_options, neighbors):
         ordered_color_options[color] = count
     return sorted(ordered_color_options, key=ordered_color_options.get)
 
-
+#calc Chromatic number
 def getChromaticNumber(location):
     states = location[0]
     neighbor = location[1]

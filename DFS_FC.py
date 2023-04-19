@@ -15,7 +15,7 @@ def Forwardcheck(location, colors, color_options, heuristic = False):
     neighbor = location[1]
     global numberOfBacktracks
     all_none = True
-    for value in colors.values():
+    for value in colors.values():    #check if state is colored
         if(value is None):
             all_none = False
             break
@@ -33,11 +33,11 @@ def Forwardcheck(location, colors, color_options, heuristic = False):
     for color in new_color_options:
         if color not in usedColors:
             colors[currentState] = color
-            states.remove(currentState)
-            if not cfs.check(color,currentNeighbors, colors, color_options):
+            states.remove(currentState) #remove current state from uncolored list
+            if not cfs.check(color,currentNeighbors, colors, color_options):    #checking consistency
                 previousColors = copy.deepcopy(color_options)
                 color_options = cfs.reduce_color_options(color, currentNeighbors, colors, color_options)
-                if fc.Forwardcheck((states,neighbor),colors,color_options)[0] != "Failure":
+                if fc.Forwardcheck((states,neighbor),colors,color_options)[0] != "Failure": #recursion
                     return ("Success", numberOfBacktracks)
                 color_options = previousColors
             colors[currentState] = None

@@ -120,18 +120,19 @@ def showTime():
     endTime = datetime.now()
     elapsedTime = (endTime - startTime).microseconds / 1000
     print("Elapsed Time: %sms" % (str(elapsedTime)))
-
+#user selection input
 country_choice =int(input("Enter '1' to use AUSTRALIA data , '2' to use USA data: "))
 heuristic_choice = int(input("Enter '1' to use no heuristic , '2' to use a heuristic: "))
 algorithm_choice = int(input("Enter '1' for Depth first search only, '2' for Depth first search + forward checking, '3' for Depth first search + forward checking + propagation through singleton domains: "))
 startTime = datetime.now()
-if(country_choice == 1):
+#user input choices based on country
+if(country_choice == 1):    #Australia
     states = Australia.country_states
     neighbors = Australia.country_neighbors
     min_number = cfs.getChromaticNumber((states, neighbors))
     print("Minimum no of colors required for Australia map: ", min_number)
-    if(heuristic_choice==1):
-        if(algorithm_choice == 1):
+    if(heuristic_choice==1):    #choice of heuristic
+        if(algorithm_choice == 1):  #DFS
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
             numberOfBacktracks = 0
@@ -145,7 +146,7 @@ if(country_choice == 1):
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
                 
-        elif(algorithm_choice == 2):
+        elif(algorithm_choice == 2):    #DFS and FC
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
@@ -158,7 +159,7 @@ if(country_choice == 1):
 
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
-        elif(algorithm_choice == 3):
+        elif(algorithm_choice == 3):    #DFS and FC with propagation
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
@@ -171,8 +172,8 @@ if(country_choice == 1):
 
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
-    else:
-        if(algorithm_choice == 1):
+    else:   #use of heuristic
+        if(algorithm_choice == 1):  #DFS
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
@@ -185,7 +186,7 @@ if(country_choice == 1):
 
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
-        elif(algorithm_choice == 2):
+        elif(algorithm_choice == 2):    #DFS and FC
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
@@ -199,7 +200,7 @@ if(country_choice == 1):
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
                 
-        else:
+        else:   #DFS and FC with SP
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
@@ -213,7 +214,7 @@ if(country_choice == 1):
             print("No. of Backtracks: ", numberOfBacktracks)
             showTime()
                 
-elif(country_choice == 2):
+elif(country_choice == 2):  #USA
     states = USA.country_states
     neighbors = USA.country_neighbors
     min_number = cfs.getChromaticNumber((states, neighbors))
