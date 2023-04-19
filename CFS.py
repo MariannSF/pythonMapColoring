@@ -5,15 +5,13 @@ import DFS as dfs
 import DFS_FC as fc
 import DFS_FC_SP as sp
 
-color_options = {}
-
+color_options ={}
 
 def color_dict(states):
     assignedColor = {}
     for state in states:
         assignedColor[state] = None
     return assignedColor
-
 
 def create_color_options(states, numberOfColors):
     color_options = {}
@@ -25,14 +23,12 @@ def create_color_options(states, numberOfColors):
         color_options[state] = copy.deepcopy(color)
     return color_options
 
-
 def reduce_color_options(color, currentNeighbors, colors, color_options):
     for neighbor in currentNeighbors:
         if colors[neighbor] == None and color in color_options[neighbor]:
             color_options[neighbor].remove(color)
     return color_options
-
-
+            
 def check(color, currentNeighbors, colors, color_options):
     for neighbor in currentNeighbors:
         if colors[neighbor] == None and color in color_options[neighbor]:
@@ -40,44 +36,34 @@ def check(color, currentNeighbors, colors, color_options):
                 return True
     return False
 
-
 def singleton_check(currentNeighbors, neighbors, colors, color_options):
-    reduceStates = []
-    for neighbor in currentNeighbors:
-        if len(color_options[neighbor]) == 1 and colors[neighbor] == None:
-            reduceStates.append(neighbor)
-
+    reduceStates = [neighbor for neighbor in currentNeighbors if len(color_options[neighbor]) == 1 and colors[neighbor] is None]
+    
     while reduceStates:
         state = reduceStates.pop(0)
         for neighbor in neighbors[state]:
-            if colors[neighbor] == None and color_options[state][0] in color_options[neighbor]:
+            if colors[neighbor] is None and color_options[state][0] in color_options[neighbor]:
                 color_options[neighbor].remove(color_options[state][0])
-                if len(color_options[neighbor]) == 0:
+                if not color_options[neighbor]:
                     return False
                 if len(color_options[neighbor]) == 1:
                     reduceStates.append(neighbor)
     return True
 
 
-def minRemainingValueHeuristic(states, color_options, neighbors):
-    states.sort(key=lambda x: (len(color_options[x]), -len(neighbors[x])))
+def minRemainingValueHeuristic(states, color_options, neighbors):    
+    states.sort(key=lambda x: (len(color_options[x]),-len(neighbors[x])))
     currentSelection = states[0]
     return currentSelection
 
-
+""" """
 def leastConstrainingValueHeuristic(currentState, color_options, neighbors):
-    currentcolor_options = color_options[currentState]
-    currentNeighbors = neighbors[currentState]
-    orderedcolor_options = {}
-    for color in currentcolor_options:
-        count = 0
-        for neighbor in currentNeighbors:
-            if color in color_options[neighbor]:
-                count = count + 1
-        orderedcolor_options[color] = count
-
-    orderedcolor_options = dict(sorted(orderedcolor_options.items(), key=lambda item: item[1]))
-    return list(orderedcolor_options.keys())
+    current_color_options = color_options[currentState]
+    ordered_color_options = {}
+    for color in current_color_options:
+        count = sum(color in color_options[neighbor] for neighbor in neighbors[currentState])
+        ordered_color_options[color] = count
+    return sorted(ordered_color_options, key=ordered_color_options.get)
 
 
 def getChromaticNumber(location):
@@ -93,10 +79,3 @@ def getChromaticNumber(location):
         if result[0] != "Failure":
             break
     return count
-
-
-def checkConstraint(state, neighbors, color, colors):
-    for neighbor in neighbors[state]:
-        if colors[neighbor] == color:
-            return False
-    return True

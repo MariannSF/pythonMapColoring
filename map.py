@@ -1,4 +1,5 @@
-import datetime as datetime
+from datetime import datetime
+import random
 import CFS as cfs
 import DFS as dfs
 import DFS_FC as fc
@@ -14,6 +15,9 @@ class Map:
         for state in self.country_states:
             print(state)
 
+    def shuffleNeighors(self):
+        random.shuffle(list(self.country_neighbors.items()))
+        dict(self.country_neighbors)
 
     def printNeighbors(self):
         for key in self.country_neighbors:
@@ -21,9 +25,8 @@ class Map:
             for neighbor in self.country_neighbors[key]:
                 string += neighbor + " "
             print(string)
-
+            
 numberOfBacktracks = 0
-
 
 
 Australia = Map(
@@ -35,7 +38,7 @@ Australia = Map(
     'Queensland' : ['Northern Territory', 'South Australia', 'New South Wales'],
     'New South Wales' : ['Queensland', 'Victoria', 'South Australia'],
     'Victoria' : ['New South Wales', 'South Australia'],
-    'Tasmania' : []
+    'Tasmania' : []  
 }
 )
 
@@ -120,196 +123,196 @@ algorithm_choice = int(input("Enter '1' for Depth first search only, '2' for Dep
 
 if(country_choice == 1):
     states = Australia.country_states
-    neighbours = Australia.country_neighbors
-    min_number = cfs.getChromaticNumber((states, neighbours))
+    neighbors = Australia.country_neighbors
+    min_number = cfs.getChromaticNumber((states, neighbors))
     print("Minimum no of colors required for Australia map: ", min_number)
     if(heuristic_choice==1):
         if(algorithm_choice == 1):
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
             numberOfBacktracks = 0
-            result = dfs.DFS_Only((states, neighbours), colors, color_options)
+            result = dfs.DFS_Only((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = fc.Forwardcheck((states, neighbours), colors, color_options)
+            result = fc.Forwardcheck((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         elif(algorithm_choice == 3):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = sp.ForwardcheckSP((states, neighbours), colors, color_options)
+            result = sp.ForwardcheckSP((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
-                print("No. of Backtracks: ", numberOfBacktracks)
+                print("No. of Backtracks: ", numberOfBacktracks)    
     else:
         if(algorithm_choice == 1):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = dfs.DFS_Only((states, neighbours), colors, color_options, True)
+            result = dfs.DFS_Only((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = fc.Forwardcheck((states, neighbours), colors, color_options, True)
+            result = fc.Forwardcheck((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         else:
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = sp.ForwardcheckSP((states, neighbours), colors, color_options, True)
+            result = sp.ForwardcheckSP((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
 elif(country_choice == 2):
     states = USA.country_states
-    neighbours = USA.country_neighbors
-    min_number = cfs.getChromaticNumber((states, neighbours))
+    neighbors = USA.country_neighbors
+    min_number = cfs.getChromaticNumber((states, neighbors))
     print("Minimum no of colors required for USA map: ", min_number)
     if(heuristic_choice==1):
         if(algorithm_choice == 1):
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
             numberOfBacktracks = 0
-            result = dfs.DFS_Only((states, neighbours), colors, color_options)
+            result = dfs.DFS_Only((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print("No. of Backtracks: ", numberOfBacktracks)
-
-
+                
+                
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = fc.Forwardcheck((states, neighbours), colors, color_options)
+            result = fc.Forwardcheck((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
-
+                
                 print("No. of Backtracks: ", numberOfBacktracks)
         else:
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = sp.ForwardcheckSP((states, neighbours), colors, color_options)
+            result = sp.ForwardcheckSP((states, neighbors), colors, color_options)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
     else:
         if(algorithm_choice == 1):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = dfs.DFS_Only((states, neighbours), colors, color_options, True)
+            result = dfs.DFS_Only((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         elif(algorithm_choice == 2):
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = fc.Forwardcheck((states, neighbours), colors, color_options, True)
+            result = fc.Forwardcheck((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
         else:
             numberOfBacktracks = 0
             colors = cfs.color_dict(states)
             color_options = cfs.create_color_options(states, min_number)
-            result = sp.ForwardcheckSP((states, neighbours), colors, color_options, True)
+            result = sp.ForwardcheckSP((states, neighbors), colors, color_options, True)
             numberOfBacktracks = result[1]
             if result[0] == 'Success':
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
             else:
                 print("Failure")
                 print(colors)
                 print("No. of Backtracks: ", numberOfBacktracks)
-
+                
 else:
     print("Invalid choice.")
     exit()
